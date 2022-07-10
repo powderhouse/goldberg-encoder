@@ -5,6 +5,59 @@ import ABCJS from "abcjs";
 
 import { useEffect } from "react";
 
+function characterToABC(char) {
+  if (char.length == 1) {
+      let regexToABC = {};
+  let characterList = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","-.!–—,…?:;"];
+  let regexList = characterList.map(c => new RegExp(`[${c}]`,"i"));
+  let skipRegex = characterList;
+  skipRegex = `[^${skipRegex.reverse().join('')}]`;
+  regexList.push(new RegExp(`[^${characterList.join('')}]`,"i"))
+  let abcList = ["A","^A","B","c","^c","d","^d","e","f","^f","g","^g","a","A,","^A,","B,","C","^C","D","^D","E","F","^F","G","^G","A","z",""];
+
+  return abcList[regexList.findIndex((r) => r.test(char))];
+  }
+  else {
+    console.log("`characterToABC expects one character, received", char.length);
+    return false;
+  }
+}
+
+function abcify(string) {
+  return string.split('').map(characterToABC);
+}
+
+function getTimeSignature() {
+  let timeSignatures = ["4/4","3/4","6/8","7/8"].map(sig => {
+    let [beatsPerMeasure, beatNoteLength] = sig.split("/").map(c => parseInt(c));
+    return {beatsPerMeasure:beatsPerMeasure, beatNoteLength:beatNoteLength}
+  });
+  return timeSignatures[Math.floor(Math.random()*timeSignatures.length)];
+}
+
+function getKey() {
+  return "C";
+}
+
+function getHeader() {
+  let saxophoneMIDIindices = {
+    soprano_sax: 64,
+    alto_sax: 65,
+    tenor_sax: 66,
+    baritone_sax: 67,
+  };
+
+  let timeSignature = getTimeSignature();
+  console.log(`${timeSignature.beatsPerMeasure}/${timeSignature.beatNoteLength}`)
+  return [
+  `T: ${"Title"}`,
+  `M: ${timeSignature.beatsPerMeasure}/${timeSignature.beatNoteLength}`,
+  `L: 1/8`,
+  `K: ${getKey()}`,
+  `[I:MIDI= program ${saxophoneMIDIindices["alto_sax"]} ]`,
+  ].join('\n')
+}
+
 export default function Home() {
   let saxophoneMIDIindices = {
     soprano_sax: 64,
@@ -13,24 +66,32 @@ export default function Home() {
     baritone_sax: 67,
   };
 
-  var abc =
-    "T: Cooley's\n" +
-    "M: 4/4\n" +
-    "L: 1/8\n" +
-    "R: reel\n" +
-    "K: Emin\n" +
-    `[I:MIDI= program ${saxophoneMIDIindices["alto_sax"]} ]` +
-    "|:D2|EB{c}BA B2 EB|~B2 AB dBAG|FDAD BDAD|FDAD dAFD|\n" +
-    "EBBA B2 EB|B2 AB defg|afe^c dBAF|DEFD E2:|\n" +
-    "|:gf|eB B2 efge|eB B2 gedB|A2 FA DAFA|A2 FA defg|\n" +
-    "eB B2 eBgB|eB B2 defg|afe^c dBAF|DEFD E2:|";
+  // var abc =
+  //   "T: Cooley's\n" +
+  //   "M: 4/4\n" +
+  //   "L: 1/8\n" +
+  //   "K: Emin\n" +
+  //   `[I:MIDI= program ${saxophoneMIDIindices["alto_sax"]} ]` +
+  //   "|:D2|EB{c}BA B2 EB|~B2 AB dBAG|FDAD BDAD|FDAD dAFD|\n" +
+  //   "EBBA B2 EB|B2 AB defg|afe^c dBAF|DEFD E2:|\n" +
+  //   "|:gf|eB B2 efge|eB B2 gedB|A2 FA DAFA|A2 FA defg|\n" +
+  //   "eB B2 eBgB|eB B2 defg|afe^c dBAF|DEFD E2:|=";
 
-  function load(event) {
+  useEffect(() => {
+    let secretInput = document.querySelector("#secret input[type='text']");
+  secretInput.value = "hello, this is a test of our abc code";
+  })
+
+ function load(event) {
     // Cribbed from the basicSynth example in https://paulrosen.github.io/abcjs/audio/synthesized-sound.html
 
     event.preventDefault(); // Since we're using this as a load handler from the form submission
     // First draw the music - this supplies an object that has a lot of information about how to create the synth.
     // NOTE: If you want just the sound without showing the music, use "*" instead of "paper" in the renderAbc call.
+
+    console.log(event);
+    var abc =getHeader() + abcify(event.target[0].value)
+
     var visualObj = ABCJS.renderAbc("paper", abc, {
       responsive: "resize",
     })[0];
