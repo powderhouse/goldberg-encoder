@@ -13,8 +13,7 @@ function characterToABC(char) {
   let skipRegex = characterList;
   skipRegex = `[^${skipRegex.reverse().join('')}]`;
   regexList.push(new RegExp(`[^${characterList.join('')}]`,"i"))
-  let abcList = ["A","^A","B","c","^c","d","^d","e","f","^f","g","^g","a","A,","^A,","B,","C","^C","D","^D","E","F","^F","G","^G","A","z",""];
-
+  let abcList = ["a","^a","b","c'","^c'","d'","^d'","e'","f'","^f'","g'","^g'","a'","A","^A","B","c","^c","d","^d","e","f","^f","g","^g","A","z"];
   return abcList[regexList.findIndex((r) => r.test(char))];
   }
   else {
@@ -79,7 +78,7 @@ export default function Home() {
 
   useEffect(() => {
     let secretInput = document.querySelector("#secret input[type='text']");
-  secretInput.value = "hello, this is a test of our abc code";
+  secretInput.value = "abcdefghijklmnopqrstuvwxyz";
   })
 
  function load(event) {
