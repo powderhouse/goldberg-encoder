@@ -243,7 +243,7 @@ export default function Home() {
             style={{
               height: "1.5em",
               fontSize: "2em",
-              backgroundColor: "#fff",
+              // backgroundColor: "#fff",
               border: "none",
               transform: "translateY(3px)",
               paddingLeft: "12px",
@@ -258,7 +258,7 @@ export default function Home() {
               style={{
                 height: "1.5em",
                 fontSize: "2em",
-                backgroundColor: "#fff",
+                // backgroundColor: "#fff",
                 border: "none",
                 transform: "translateY(3px)",
               }}
