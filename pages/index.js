@@ -229,7 +229,7 @@ export default function Home() {
     <div className="container">
       <div
         className="controls"
-        style={{ display: "flex", alignItems: "center", paddingLeft: "16px" }}
+        style={{ display: "flex", alignItems: "center", paddingLeft: "16px", paddingBottom: "16px" }}
       >
         <form id="secret" onSubmit={load}>
           <input
@@ -272,7 +272,7 @@ export default function Home() {
           <div className="status"></div>
         </div>
       </div>
-      <div id="paper"></div>
+      <div id="paper" style={{ backgroundColor:"#f5f3ef" }} ></div>
       {/*      <p className="suspend-explanation">
         Browsers won't allow audio to work unless the audio is started in
         response to a user action. This prevents auto-playing web sites.
