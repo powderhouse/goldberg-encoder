@@ -145,7 +145,7 @@ export default function Home() {
   var audioContext, midiBuffer;
   useEffect(() => {
     let secretInput = document.querySelector("#secret input[type='text']");
-    secretInput.value = "abcdefghijklmnopqrstuvwxyz";
+    secretInput.value = "";
     window.AudioContext =
       window.AudioContext ||
       window.webkitAudioContext ||
@@ -272,7 +272,7 @@ export default function Home() {
           <div className="status"></div>
         </div>
       </div>
-      <div id="paper" style={{ backgroundColor:"#f5f3ef" }} ></div>
+      <div id="paper" style={{ backgroundColor:"#f5f3ef", padding:"0 16px" }} ></div>
       {/*      <p className="suspend-explanation">
         Browsers won't allow audio to work unless the audio is started in
         response to a user action. This prevents auto-playing web sites.
