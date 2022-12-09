@@ -178,7 +178,7 @@ export default function Home() {
 
     log("Testing browser…");
     if (ABCJS.synth.supportsAudio()) {
-      stopAudioButton.setAttribute("style", "");
+      stopAudioButton.setAttribute("style", "height:1.5em;font-size:2em;background-color:#fff;border:none;transform:translateY(3px);");
 
       // An audio context is needed - this can be passed in for two reasons:
       // 1) So that you can share this audio context with other elements on your page.
@@ -224,19 +224,22 @@ export default function Home() {
 
   return (
     <div className="container">
+    <div className="controls" style={{display:"flex",alignItems:"center",paddingLeft:"16px"}} >
       <form id="secret" onSubmit={load}>
-        <input type="text" placeholder="Your Secret…" />
-        <input type="submit" value="▶️" />
+        <input type="text" placeholder="Your Secret…" style={{height:"1.5em",fontSize:"1.6em"}} />
+        <input type="submit" value="▶️"  style={{height:"1.5em",fontSize:"2em",backgroundColor:"#fff",border:"none",transform:"translateY(3px)",paddingLeft:"12px"}} />
+        
       </form>
       <div id="translated-abc"></div>
       <div className="row">
         <div>
-          <button className="stop-audio">⏹</button>
+          <button className="stop-audio" style={{height:"1.5em",fontSize:"2em",backgroundColor:"#fff",border:"none",transform:"translateY(3px)"}} >⏹</button>
           <div className="audio-error" style={{ display: "none" }}>
             Audio is not supported in this browser.
           </div>
         </div>
         <div className="status"></div>
+      </div>
       </div>
       <div id="paper"></div>
       {/*      <p className="suspend-explanation">
