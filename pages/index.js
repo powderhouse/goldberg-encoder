@@ -180,7 +180,7 @@ export default function Home() {
     if (ABCJS.synth.supportsAudio()) {
       stopAudioButton.setAttribute(
         "style",
-        "height:1.5em;font-size:2em;background-color:#fff;border:none;transform:translateY(3px);"
+        "height:1.5em;font-size:2em;background-color:rgba(0,0,0,0);border:none;transform:translateY(3px);"
       );
 
       // An audio context is needed - this can be passed in for two reasons:
@@ -243,7 +243,7 @@ export default function Home() {
             style={{
               height: "1.5em",
               fontSize: "2em",
-              // backgroundColor: "#fff",
+              backgroundColor: "rgba(0,0,0,0)",
               border: "none",
               transform: "translateY(3px)",
               paddingLeft: "12px",
@@ -258,7 +258,7 @@ export default function Home() {
               style={{
                 height: "1.5em",
                 fontSize: "2em",
-                // backgroundColor: "#fff",
+                backgroundColor: "rgba(0,0,0,0)",
                 border: "none",
                 transform: "translateY(3px)",
               }}
